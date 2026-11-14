@@ -1,0 +1,1123 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Galaxy Birthday Gift</title>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"
+  }
+}
+</script>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    overflow-x: hidden;
+    color: white;
+    font-family: Arial, sans-serif;
+    background:
+        radial-gradient(ellipse at 20% 20%, #34216c, transparent 40%),
+        radial-gradient(ellipse at 80% 70%, #3c175e, transparent 40%),
+        linear-gradient(135deg, #030319, #101044, #08051e);
+}
+
+/* GALAKSI */
+
+#stars {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    border-radius: 50%;
+    background: white;
+    box-shadow: 0 0 8px #9ceaff;
+    animation: twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle {
+    from { opacity: .2; transform: scale(.7); }
+    to { opacity: 1; transform: scale(1.4); }
+}
+
+.meteor {
+    position: fixed;
+    width: 130px;
+    height: 2px;
+    background: linear-gradient(90deg, white, transparent);
+    transform: rotate(-35deg);
+    animation: meteor 5s linear infinite;
+    pointer-events: none;
+    z-index: 1;
+}
+
+@keyframes meteor {
+    0% {
+        transform: translate(300px, -100px) rotate(-35deg);
+        opacity: 0;
+    }
+    10% { opacity: 1; }
+    100% {
+        transform: translate(-500px, 500px) rotate(-35deg);
+        opacity: 0;
+    }
+}
+
+.nebula {
+    position: fixed;
+    width: 350px;
+    height: 350px;
+    border-radius: 50%;
+    background: #a34cff;
+    filter: blur(130px);
+    opacity: .12;
+    z-index: 0;
+    animation: nebulaMove 12s infinite alternate;
+    pointer-events: none;
+}
+
+.nebula.one {
+    top: 5%;
+    left: -100px;
+}
+
+.nebula.two {
+    right: -100px;
+    bottom: 5%;
+    background: #2d9cff;
+}
+
+@keyframes nebulaMove {
+    to {
+        transform: translate(80px, 50px) scale(1.3);
+    }
+}
+
+/* LAYOUT */
+
+.container {
+    position: relative;
+    z-index: 2;
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    padding: 35px 12px;
+}
+
+h1 {
+    font-size: clamp(24px, 6vw, 45px);
+    color: white;
+    text-shadow:
+        0 0 10px #8b8cff,
+        0 0 25px #8b8cff;
+    margin-bottom: 20px;
+}
+
+.subtitle {
+    max-width: 600px;
+    color: #d6d5ff;
+    line-height: 1.8;
+    margin-bottom: 25px;
+    padding: 0 10px;
+}
+
+/* KADO */
+
+.gift {
+    font-size: clamp(90px, 20vw, 130px);
+    cursor: pointer;
+    border: none;
+    background: none;
+    filter: drop-shadow(0 0 20px #ff8bd8);
+    animation: float 2s infinite ease-in-out;
+    transition: .3s;
+}
+
+.gift:hover {
+    transform: scale(1.15) rotate(-8deg);
+}
+
+@keyframes float {
+    50% { transform: translateY(-15px); }
+}
+
+.hint {
+    margin-top: 20px;
+    color: #a9caff;
+    letter-spacing: 3px;
+    font-size: 12px;
+    animation: hintBlink 1.5s infinite alternate;
+}
+
+@keyframes hintBlink {
+    to { opacity: .4; }
+}
+
+/* HALAMAN ULANG TAHUN */
+
+#birthday {
+    display: none;
+    width: 100%;
+    animation: appear 1s ease;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* PIXEL HAPPY BIRTHDAY */
+
+.pixel-title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin: 30px 0;
+}
+
+.pixel-row {
+    display: flex;
+    justify-content: center;
+    gap: clamp(4px, 1vw, 9px);
+}
+
+.pixel-letter {
+    display: grid;
+    grid-template-columns: repeat(5, clamp(4px, 1.25vw, 9px));
+    grid-template-rows: repeat(7, clamp(4px, 1.25vw, 9px));
+    gap: 1.5px;
+}
+
+.pixel-letter span {
+    background: transparent;
+}
+
+.pixel-letter span.on {
+    background: linear-gradient(
+        135deg,
+        #ffffff,
+        #77eaff,
+        #d18bff
+    );
+    box-shadow: 0 0 10px #8ceaff;
+    animation: pixelBlink 1s infinite alternate;
+}
+
+@keyframes pixelBlink {
+    0% {
+        opacity: .35;
+        box-shadow: 0 0 3px #8ceaff;
+    }
+    100% {
+        opacity: 1;
+        box-shadow:
+            0 0 10px #8ceaff,
+            0 0 20px #ff8bd8;
+    }
+}
+
+/* UCAPAN */
+
+.wish {
+    max-width: 750px;
+    margin: 10px auto 35px;
+    line-height: 1.9;
+    color: #e5e5ff;
+    padding: 0 15px;
+    font-size: clamp(14px, 2.5vw, 17px);
+}
+
+.wish strong {
+    display: block;
+    color: #ffb8e8;
+    font-size: 21px;
+    margin-bottom: 10px;
+    text-shadow: 0 0 12px #ff5fc4;
+}
+
+/* LOVE 3D */
+
+.love-heading {
+    margin: 35px 0 20px;
+    color: #ffb8e8;
+    font-size: clamp(17px, 4vw, 24px);
+    text-shadow: 0 0 15px #ff5fc4;
+    animation: headingGlow 1.5s infinite alternate;
+}
+
+@keyframes headingGlow {
+    to {
+        text-shadow: 0 0 10px #ff5fc4, 0 0 30px #ff8bd8;
+    }
+}
+
+.heart-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: visible;
+    padding: 25px 0 45px;
+    perspective: 1100px;
+}
+
+.heart-stage {
+    position: relative;
+    width: min(520px, 92vw);
+    height: min(460px, 82vw);
+    min-height: 300px;
+    display: grid;
+    place-items: center;
+    perspective: 1100px;
+    transform-style: preserve-3d;
+}
+
+#loveHeart {
+    width: 100%;
+    height: 100%;
+    display: block;
+    filter: drop-shadow(0 0 22px #ff4db8aa);
+}
+
+.heart-loading {
+    position: absolute;
+    color: #ffd5ef;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-shadow: 0 0 12px #ff5fc4;
+    pointer-events: none;
+}
+
+/* TOMBOL ULANG */
+
+.replay {
+    margin-top: 30px;
+    padding: 13px 25px;
+    border: 1px solid #ff9de0;
+    border-radius: 30px;
+    background: #a33b9a33;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    box-shadow: 0 0 15px #ff5fc455;
+    transition: .3s;
+}
+
+.replay:hover {
+    background: #a33b9a88;
+    transform: scale(1.05);
+}
+
+.footer {
+    margin-top: 30px;
+    color: #aeb8ef;
+    font-size: 13px;
+}
+
+/* RESPONSIVE HP */
+
+@media(max-width: 520px) {
+    .container {
+        padding: 30px 8px;
+    }
+
+    .pixel-letter {
+        grid-template-columns: repeat(5, 4.5px);
+        grid-template-rows: repeat(7, 4.5px);
+        gap: 1px;
+    }
+
+    .pixel-row {
+        gap: 4px;
+    }
+
+    .heart-container {
+        padding: 10px 0 30px;
+    }
+
+    .heart-stage {
+        height: 330px;
+        min-height: 280px;
+    }
+}
+
+/* REDUKSI GERAK */
+
+@media(prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div id="stars"></div>
+<div class="nebula one"></div>
+<div class="nebula two"></div>
+
+<div class="meteor" style="top:10%;left:70%"></div>
+<div class="meteor" style="top:40%;left:90%;animation-delay:2s"></div>
+<div class="meteor" style="top:65%;left:80%;animation-delay:3s"></div>
+
+<div class="container">
+
+    <!-- HALAMAN KADO -->
+
+    <section id="giftScreen">
+
+        <h1>Ada kado nih untukmu ✨</h1>
+
+        <p class="subtitle">
+           hadiah dariku
+        </p>
+
+        <button class="gift" onclick="openGift()" aria-label="Buka kado">
+            🎁
+        </button>
+
+        <div class="hint">
+            KLIK KADONYA UNTUK MEMBUKA
+        </div>
+
+    </section>
+
+    <!-- HALAMAN BIRTHDAY -->
+
+    <section id="birthday">
+
+        <h1>Untuk Hari yang Istimewa</h1>
+
+        <div class="pixel-title" id="pixelTitle"></div>
+
+        <div class="wish">
+
+            <strong>Selamat Ulang Tahun! 💙</strong>
+
+            <p>
+               Selamat ulang tahun, Kak! 🥳🎂❤️
+
+Semoga panjang umur, sehat selalu, dilancarkan segala urusannya, dimudahkan rezekinya, dan semua hal baik selalu menyertai setiap langkah Kakak. Semoga apa yang selama ini diimpikan bisa segera terwujud. Tetap jadi pribadi yang baik, kuat, dan selalu bahagia ya, Kak.
+
+Terima kasih sudah mengenalku. Jangan lupa bahagia dan nikmati hari spesial ini. Semoga tahun ini jauh lebih baik dari tahun-tahun sebelumnya. Aamiin. ❤️✨
+            </p>
+
+        </div>
+
+        <h2 class="love-heading">
+            💗
+        </h2>
+
+        <div class="heart-container">
+            <div class="heart-stage">
+                <canvas id="loveHeart" aria-label="Hati 3D berisi ucapan cinta dalam berbagai bahasa"></canvas>
+                <div class="heart-loading" id="heartLoading">
+                    MENYIAPKAN HATI 3D ✦
+                </div>
+            </div>
+        </div>
+
+        <button class="replay" onclick="replayGift()">
+            ↻ Ulangi dari Awal
+        </button>
+
+        <div class="footer">
+            by savila
+        </div>
+
+    </section>
+
+</div>
+
+<script>
+
+// MEMBUAT BINTANG
+
+const stars = document.getElementById("stars");
+
+for (let i = 0; i < 160; i++) {
+
+    const star = document.createElement("div");
+
+    star.className = "star";
+
+    star.style.left = Math.random() * 100 + "%";
+    star.style.top = Math.random() * 100 + "%";
+
+    star.style.animationDuration =
+        (1 + Math.random() * 4) + "s";
+
+    stars.appendChild(star);
+}
+
+
+// POLA HURUF PIXEL
+
+const patterns = {
+
+    H:["10001","10001","10001","11111","10001","10001","10001"],
+    A:["01110","10001","10001","11111","10001","10001","10001"],
+    P:["11110","10001","10001","11110","10000","10000","10000"],
+    Y:["10001","10001","01010","00100","00100","00100","00100"],
+
+    B:["11110","10001","10001","11110","10001","10001","11110"],
+    I:["11111","00100","00100","00100","00100","00100","11111"],
+    R:["11110","10001","10001","11110","10100","10010","10001"],
+    T:["11111","00100","00100","00100","00100","00100","00100"],
+    D:["11110","10001","10001","10001","10001","10001","11110"]
+
+};
+
+
+// MEMBUAT HAPPY BIRTHDAY
+
+const rows = ["HAPPY", "BIRTHDAY"];
+
+const title = document.getElementById("pixelTitle");
+
+let letterIndex = 0;
+
+rows.forEach(row => {
+
+    const line = document.createElement("div");
+
+    line.className = "pixel-row";
+
+    [...row].forEach(char => {
+
+        const letter = document.createElement("div");
+
+        letter.className = "pixel-letter";
+        letter.style.opacity = "0";
+
+        patterns[char].forEach(pattern => {
+
+            [...pattern].forEach(bit => {
+
+                const cell = document.createElement("span");
+
+                if (bit === "1") {
+                    cell.className = "on";
+                }
+
+                letter.appendChild(cell);
+
+            });
+
+        });
+
+        line.appendChild(letter);
+
+        setTimeout(() => {
+
+            letter.animate(
+                [
+                    {
+                        opacity: 0,
+                        transform: "scale(.6)"
+                    },
+                    {
+                        opacity: 1,
+                        transform: "scale(1)"
+                    }
+                ],
+                {
+                    duration: 500,
+                    fill: "forwards"
+                }
+            );
+
+        }, letterIndex * 250);
+
+        letterIndex++;
+
+    });
+
+    title.appendChild(line);
+
+});
+
+
+// DAFTAR TULISAN CINTA
+
+const phrases = [
+    "I LOVE YOU",
+    "TE AMO",
+    "JE T'AIME",
+    "SARANGHAE",
+    "TI AMO",
+    "WO AI NI",
+    "MAHAL KITA",
+    "ICH LIEBE DICH",
+    "EU TE AMO",
+    "AISHITERU",
+    "KOCHAM CIE",
+    "ANA UHIBBUK",
+    "愛してる",
+    "사랑해",
+    "我爱你",
+    "Я ТЕБЯ ЛЮБЛЮ",
+    "ILY",
+    "LOVE",
+    "AMOR",
+    "CINTA"
+];
+
+
+// MEMBUAT HATI 3D
+
+async function create3DHeart() {
+
+    const canvas = document.getElementById("loveHeart");
+    const loading = document.getElementById("heartLoading");
+
+    try {
+
+        const THREE = await import("three");
+
+        // MEMBUAT TEKSTUR HATI
+
+        const textureCanvas = document.createElement("canvas");
+
+        textureCanvas.width = 1200;
+        textureCanvas.height = 1100;
+
+        const ctx = textureCanvas.getContext("2d");
+
+
+        // BENTUK SILUET HATI
+
+        function traceHeart(context) {
+
+            context.beginPath();
+
+            context.moveTo(600, 990);
+
+            context.bezierCurveTo(
+                520, 920,
+                80, 620,
+                80, 350
+            );
+
+            context.bezierCurveTo(
+                80, 80,
+                400, 20,
+                600, 250
+            );
+
+            context.bezierCurveTo(
+                800, 20,
+                1120, 80,
+                1120, 350
+            );
+
+            context.bezierCurveTo(
+                1120, 620,
+                680, 920,
+                600, 990
+            );
+
+            context.closePath();
+        }
+
+
+        // WARNA DASAR HATI
+
+        ctx.clearRect(
+            0,
+            0,
+            textureCanvas.width,
+            textureCanvas.height
+        );
+
+        ctx.save();
+
+        traceHeart(ctx);
+        ctx.clip();
+
+        const gradient = ctx.createLinearGradient(
+            120, 100,
+            1050, 1000
+        );
+
+        gradient.addColorStop(0, "#ffb5df");
+        gradient.addColorStop(0.35, "#f044a7");
+        gradient.addColorStop(0.72, "#a81772");
+        gradient.addColorStop(1, "#541044");
+
+        ctx.fillStyle = gradient;
+
+        ctx.fillRect(0, 0, 1200, 1100);
+
+
+        // EFEK KILAU
+
+        const shine = ctx.createRadialGradient(
+            390, 280, 10,
+            390, 280, 600
+        );
+
+        shine.addColorStop(
+            0,
+            "rgba(255,255,255,.38)"
+        );
+
+        shine.addColorStop(
+            1,
+            "rgba(255,255,255,0)"
+        );
+
+        ctx.fillStyle = shine;
+
+        ctx.fillRect(0, 0, 1200, 1100);
+
+
+        // MENYUSUN TULISAN DENGAN JARAK RENGGANG
+
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+
+        let phraseIndex = 0;
+        let row = 0;
+
+        for (let y = 145; y <= 990; y += 92) {
+
+            const curve = Math.sin(row * 0.72) * 24;
+
+            const offset = row % 2 ? 105 : 0;
+
+            for (
+                let x = 115 + offset;
+                x <= 1090;
+                x += 245
+            ) {
+
+                // MENYISAKAN RUANG KOSONG
+
+                if (
+                    (row + Math.round(x / 245)) % 4 === 1
+                ) {
+                    continue;
+                }
+
+                const phrase =
+                    phrases[phraseIndex % phrases.length];
+
+                phraseIndex++;
+
+                ctx.save();
+
+                ctx.translate(x, y + curve);
+
+                // MEMBUAT TULISAN SEDIKIT MELENGKUNG
+
+                ctx.rotate(
+                    Math.sin(
+                        (x / 245) + row * 0.55
+                    ) * 0.10
+                );
+
+                ctx.font = "bold 23px Arial, sans-serif";
+
+                ctx.lineWidth = 2.5;
+
+                ctx.strokeStyle = "rgba(105, 0, 65, .65)";
+
+                ctx.strokeText(phrase, 0, 0);
+
+                ctx.fillStyle =
+                    phraseIndex % 3 === 0
+                    ? "#fffaff"
+                    : "#ffe5f4";
+
+                ctx.shadowColor =
+                    "rgba(255,255,255,.45)";
+
+                ctx.shadowBlur = 7;
+
+                ctx.fillText(phrase, 0, 0);
+
+                ctx.restore();
+
+            }
+
+            row++;
+
+        }
+
+
+        // KILAU KECIL DI ANTARA TULISAN
+
+        for (let i = 0; i < 75; i++) {
+
+            const x = Math.random() * 1200;
+            const y = Math.random() * 1100;
+
+            ctx.beginPath();
+
+            ctx.arc(
+                x,
+                y,
+                Math.random() * 1.7 + 0.5,
+                0,
+                Math.PI * 2
+            );
+
+            ctx.fillStyle = "rgba(255,255,255,.72)";
+
+            ctx.fill();
+
+        }
+
+        ctx.restore();
+
+
+        // MEMBUAT TEXTURE THREE.JS
+
+        const texture = new THREE.CanvasTexture(
+            textureCanvas
+        );
+
+        texture.colorSpace = THREE.SRGBColorSpace;
+        texture.anisotropy = 8;
+
+
+        // MEMBUAT BENTUK GEOMETRY HATI
+
+        const shape = new THREE.Shape();
+
+        shape.moveTo(0, -1.35);
+
+        shape.bezierCurveTo(
+            -0.22, -1.12,
+            -1.55, -0.15,
+            -1.55, 0.72
+        );
+
+        shape.bezierCurveTo(
+            -1.55, 1.55,
+            -0.48, 1.82,
+            0, 1.05
+        );
+
+        shape.bezierCurveTo(
+            0.48, 1.82,
+            1.55, 1.55,
+            1.55, 0.72
+        );
+
+        shape.bezierCurveTo(
+            1.55, -0.15,
+            0.22, -1.12,
+            0, -1.35
+        );
+
+
+        // MEMBERI KETEBALAN DAN BEVEL
+
+        const geometry = new THREE.ExtrudeGeometry(
+            shape,
+            {
+                depth: 0.72,
+                steps: 1,
+                bevelEnabled: true,
+                bevelSegments: 8,
+                bevelSize: 0.13,
+                bevelThickness: 0.16,
+                curveSegments: 32
+            }
+        );
+
+        geometry.center();
+
+
+        // MENGATUR UV TEXTURE
+
+        const pos = geometry.attributes.position;
+        const uv = geometry.attributes.uv;
+
+        for (let i = 0; i < pos.count; i++) {
+
+            const x = pos.getX(i);
+            const y = pos.getY(i);
+
+            uv.setXY(
+                i,
+                THREE.MathUtils.clamp(
+                    (x + 1.9) / 3.8,
+                    0,
+                    1
+                ),
+                THREE.MathUtils.clamp(
+                    (y + 1.9) / 3.8,
+                    0,
+                    1
+                )
+            );
+
+        }
+
+        uv.needsUpdate = true;
+
+
+        // MATERIAL BAGIAN DEPAN
+
+        const frontMaterial =
+            new THREE.MeshStandardMaterial({
+                map: texture,
+                roughness: 0.32,
+                metalness: 0.08
+            });
+
+
+        // MATERIAL SISI HATI
+
+        const sideMaterial =
+            new THREE.MeshStandardMaterial({
+                color: "#c52b83",
+                roughness: 0.24,
+                metalness: 0.18
+            });
+
+
+        // OBJEK HATI
+
+        const heartMesh = new THREE.Mesh(
+            geometry,
+            [
+                frontMaterial,
+                sideMaterial
+            ]
+        );
+
+
+        // SCENE
+
+        const scene = new THREE.Scene();
+
+        scene.background = null;
+
+
+        // CAMERA
+
+        const camera =
+            new THREE.PerspectiveCamera(
+                38,
+                1,
+                0.1,
+                100
+            );
+
+        camera.position.set(0, 0, 7.2);
+
+
+        // RENDERER
+
+        const renderer =
+            new THREE.WebGLRenderer({
+                canvas,
+                alpha: true,
+                antialias: true
+            });
+
+        renderer.setPixelRatio(
+            Math.min(window.devicePixelRatio || 1, 2)
+        );
+
+        renderer.outputColorSpace =
+            THREE.SRGBColorSpace;
+
+        renderer.toneMapping =
+            THREE.ACESFilmicToneMapping;
+
+        renderer.toneMappingExposure = 1.25;
+
+
+        // MEMASUKKAN HATI KE SCENE
+
+        scene.add(heartMesh);
+
+
+        // PENCAHAYAAN
+
+        const ambient =
+            new THREE.AmbientLight(
+                0xffffff,
+                1.7
+            );
+
+        scene.add(ambient);
+
+
+        const pinkLight =
+            new THREE.PointLight(
+                0xff72c8,
+                45,
+                20
+            );
+
+        pinkLight.position.set(-3, 3, 4);
+
+        scene.add(pinkLight);
+
+
+        const blueLight =
+            new THREE.PointLight(
+                0x8b9dff,
+                30,
+                20
+            );
+
+        blueLight.position.set(3, -2, -3);
+
+        scene.add(blueLight);
+
+
+        // RESPONSIVE CANVAS
+
+        function resizeHeart() {
+
+            const width =
+                canvas.clientWidth || 420;
+
+            const height =
+                canvas.clientHeight || 360;
+
+            renderer.setSize(
+                width,
+                height,
+                false
+            );
+
+            camera.aspect = width / height;
+
+            camera.updateProjectionMatrix();
+
+        }
+
+        resizeHeart();
+
+        window.addEventListener(
+            "resize",
+            resizeHeart
+        );
+
+
+        // ANIMASI ROTASI 3D
+
+        function animate() {
+
+            requestAnimationFrame(animate);
+
+            // Rotasi ke samping
+
+            heartMesh.rotation.y += 0.008;
+
+            // Gerakan naik turun / mengangguk
+
+            heartMesh.rotation.x =
+                Math.sin(Date.now() * 0.00055) * 0.20;
+
+            // Gerakan miring kecil
+
+            heartMesh.rotation.z =
+                Math.sin(Date.now() * 0.00035) * 0.035;
+
+            renderer.render(scene, camera);
+
+        }
+
+        animate();
+
+        loading.style.display = "none";
+
+    } catch (error) {
+
+        console.error(
+            "Gagal memuat hati 3D:",
+            error
+        );
+
+        loading.textContent =
+            "Hati 3D membutuhkan koneksi internet untuk memuat Three.js.";
+
+    }
+
+}
+
+create3DHeart();
+
+
+// BUKA KADO
+
+function openGift() {
+
+    document.getElementById(
+        "giftScreen"
+    ).style.display = "none";
+
+    document.getElementById(
+        "birthday"
+    ).style.display = "block";
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+}
+
+
+// ULANGI DARI AWAL
+
+function replayGift() {
+
+    document.getElementById(
+        "birthday"
+    ).style.display = "none";
+
+    document.getElementById(
+        "giftScreen"
+    ).style.display = "block";
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+}
+
+</script>
+
+</body>
+</html>
